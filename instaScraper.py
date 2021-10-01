@@ -144,7 +144,7 @@ class Scraper:
         '''Load and fetch target account posts'''
 
         image_list = [] # to store the posts
-        self.no_of_posts = 50
+        self.no_of_posts = 200
         #get the no of posts
         # try:
         #     no_of_posts = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/ul/li[1]/span/span')
@@ -164,7 +164,7 @@ class Scraper:
                     image_list.append(img)
 
             if self.no_of_posts > 12: # 12 posts loads up when we open the profile
-                no_of_scrolls = round(self.no_of_posts/12) + 6 # extra scrolls if any error occurs while scrolling.
+                no_of_scrolls = round(self.no_of_posts/12) + 1 # extra scrolls if any error occurs while scrolling.
 
                 # Loading all the posts
                 print('Loading all the posts...')
@@ -175,7 +175,7 @@ class Scraper:
                     sleep(2) # introduce sleep time as per your internet connection as to give the time to posts to load
                     
                     soup = BeautifulSoup(self.driver.page_source, 'lxml')
-                    all_images = soup.find_all('img') 
+                    all_images = soup.find_all('img', attrs = {'class': 'FFVAD'}) 
         
                     for img in all_images:
                         if img not in image_list:
